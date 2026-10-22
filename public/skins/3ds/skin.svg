@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 360" id="skin">
+  <!-- Bottom half of a New 3DS XL. Elements with data-bits light up when ANY of those bits of the
+       buttons word is set (wire-format bit numbers, see source/protocol.h in 3Input). -->
+
+  <!-- shoulder buttons sit above the shell edge: L/R on the corners, ZL/ZR just inside them -->
+  <rect class="btn" data-bits="9"  x="58"  y="12" width="100" height="22" rx="11"/>
+  <rect class="btn" data-bits="8"  x="542" y="12" width="100" height="22" rx="11"/>
+  <rect class="btn" data-bits="14" x="172" y="18" width="70"  height="16" rx="8"/>
+  <rect class="btn" data-bits="15" x="458" y="18" width="70"  height="16" rx="8"/>
+  <text class="lbl" x="108" y="28" text-anchor="middle">L</text>
+  <text class="lbl" x="592" y="28" text-anchor="middle">R</text>
+  <text style="color: white" class="lbl small" x="207" y="30" text-anchor="middle">ZL</text>
+  <text class="lbl small" x="493" y="30" text-anchor="middle">ZR</text>
+
+  <!-- shell and touch screen (screen is 320x240, 1 px per touch pixel) -->
+  <rect class="shell" x="50" y="38" width="600" height="312" rx="34"/>
+  <rect class="screen" x="190" y="62" width="320" height="240" rx="4"/>
+  <circle id="touch" class="touch" cx="350" cy="182" r="9" visibility="hidden"/>
+
+  <!-- circle pad -->
+  <circle class="well" cx="120" cy="132" r="46"/>
+  <g id="cpad-nub"><circle class="nub" data-bits="28 29 30 31" cx="120" cy="132" r="28"/></g>
+  <!-- d-pad -->
+  <rect class="btn" data-bits="6" x="108" y="222" width="24" height="30" rx="4"/>
+  <rect class="btn" data-bits="7" x="108" y="256" width="24" height="30" rx="4"/>
+  <rect class="btn" data-bits="5" x="86"  y="242" width="30" height="24" rx="4"/>
+  <rect class="btn" data-bits="4" x="124" y="242" width="30" height="24" rx="4"/>
+  <rect class="well" x="108" y="242" width="24" height="24"/>
+
+  <!-- c-stick: a small nub, like the New 3DS XL -->
+  <circle class="well" cx="540" cy="80" r="20"/>
+  <g id="cstick-nub"><circle class="nub" data-bits="24 25 26 27" cx="540" cy="80" r="12"/></g>
+
+  <!-- face buttons -->
+  <circle class="btn" data-bits="10" cx="580" cy="120" r="16"/>
+  <circle class="btn" data-bits="11" cx="548" cy="154" r="16"/>
+  <circle class="btn" data-bits="0"  cx="612" cy="154" r="16"/>
+  <circle class="btn" data-bits="1"  cx="580" cy="188" r="16"/>
+  <text class="lbl" x="580" y="125" text-anchor="middle">X</text>
+  <text class="lbl" x="548" y="159" text-anchor="middle">Y</text>
+  <text class="lbl" x="612" y="159" text-anchor="middle">A</text>
+  <text class="lbl" x="580" y="193" text-anchor="middle">B</text>
+
+  <!-- home / select / start -->
+  <circle class="btn" data-bits="16" cx="350" cy="326" r="16"/>
+  <text class="lbl small" x="350" y="330" text-anchor="middle">HOME</text>
+  <rect class="btn" data-bits="2" x="525" y="286" width="18" height="18" rx="9"/>
+  <rect class="btn" data-bits="3" x="525" y="260" width="18" height="18" rx="9"/>
+  <text class="lbl small" x="563" y="299" text-anchor="middle">SELECT</text>
+  <text class="lbl small" x="560" y="272" text-anchor="middle">START</text>
+</svg>

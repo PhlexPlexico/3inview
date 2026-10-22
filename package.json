@@ -13,5 +13,13 @@
   "dependencies": {
     "hono": "^4.13.13",
     "vitest": "^5.0.5"
+  },
+  "scripts": {
+    "build:web": "bun build web/main.ts --outdir public --target browser",
+    "dev": "bun run build:web && bun --watch index.ts",
+    "start": "bun run build:web && bun index.ts",
+    "mock": "bun tests/mock-live.ts",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit -p . && tsc --noEmit -p web"
   }
 }

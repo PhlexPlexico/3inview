@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>3inview</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  html, body { margin: 0; background: transparent; font-family: system-ui, sans-serif; }
+  #stage { transform-origin: top left; width: 700px; }
+  #skin { width: 700px; height: 360px; display: block; }
+  .shell  { fill: #2b2d33; stroke: #55585f; stroke-width: 3; }
+  .shell.dark { fill: #1c1d21; }
+  .screen { fill: #1eff00; stroke: #44474d; stroke-width: 2; }
+  .well   { fill: #1a1b1f; stroke: #44474d; stroke-width: 2; }
+  .nub    { fill: #50545c; stroke: #8a8f99; stroke-width: 2; }
+  .btn    { fill: #3b3e46; stroke: #70747d; stroke-width: 2; }
+  .pressed { fill: #ff4f5a !important; stroke: #ffd0d3 !important; }
+  .touch  { fill: #3aa0ff; stroke: #fff; stroke-width: 2; }
+  .lbl    { fill: #c9ccd2; font-size: 14px; pointer-events: none; user-select: none; }
+  .lbl.small { font-size: 9px; } .lbl.dim { fill: #5b5f68; }
+  #hud { position: static; display: inline-block; margin: 6px 0 0 8px; color: #dfe3ea; font: 12px/1.35 ui-monospace, monospace;
+         background: rgba(0,0,0,.55); padding: 6px 8px; border-radius: 6px; max-width: 360px; white-space: pre-wrap; }
+  #hud.hidden { display: none; }
+  #conn { font-weight: bold; }
+</style>
+</head>
+<body>
+  <div id="stage"></div>
+  <div id="hud"><span id="conn">Connecting...</span>
+<span id="info"></span></div>
+  <script type="module" src="/main.js"></script>
+</body>
+</html>

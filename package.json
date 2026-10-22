@@ -3,6 +3,21 @@
   "module": "index.ts",
   "type": "module",
   "private": true,
+  "licenses": [
+    {
+      "type": "GPL-3.0-only",
+      "url": "https://opensource.org/license/gpl-3.0"
+    }
+  ],
+  "homepage": "https://github.com/phlexplexico/3inview/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/phlexplexico/3inview.git"
+  },
+  "author": {
+    "name": "Phlex Plexico",
+    "url": "https://phlexplexi.co"
+  },
   "devDependencies": {
     "@types/bun": "latest",
     "@types/node": "^26.6.5"
@@ -20,6 +35,7 @@
     "start": "bun run build:web && bun index.ts",
     "mock": "bun tests/mock-live.ts",
     "test": "vitest run",
-    "typecheck": "tsc --noEmit -p . && tsc --noEmit -p web"
+    "typecheck": "tsc --noEmit -p . && tsc --noEmit -p web",
+    "dist": "bun scripts/dist.ts"
   }
 }

@@ -1,8 +1,8 @@
 import { Hono } from "hono";
-import { serveStatic } from "hono/bun";
 import { streamSSE } from "hono/streaming";
 import { subscribe } from "./server/hub";
 import { isPrivateIPv4 } from "./server/net-util";
+import { ASSETS } from "./server/assets";
 
 const app = new Hono();
 
@@ -23,7 +23,10 @@ app.get("/events", (c) => {
   });
 });
 
-app.use("/*", serveStatic({ root: "./public" }));
+app.get("/*", (c) => {
+  const a = ASSETS[c.req.path];
+  return a ? new Response(Bun.file(a.path), { headers: { "content-type": a.type } }) : c.notFound();
+});
 
 const port = Number(process.env.PORT ?? 3000);
 Bun.serve({ port, hostname: "127.0.0.1", idleTimeout: 0, fetch: app.fetch });

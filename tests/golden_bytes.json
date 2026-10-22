@@ -1,0 +1,520 @@
+{
+  "protocolVersion": 4,
+  "frameSize": 32,
+  "littleEndian": true,
+  "layout": "magic[2] version seq buttons:u32 cp:s16x2 tp:s16x2 cs:s16x2 ir cs wifi recoveries irError:u32 csError:u32",
+  "cases": [
+    {
+      "name": "idle",
+      "description": "Nothing pressed, sticks centred, statuses passive/mapped/holding.",
+      "hex": "4933040000000000000000000000000000000000020102000000000000000000",
+      "expected": {
+        "seq": 0,
+        "buttons": 0,
+        "cp": [
+          0,
+          0
+        ],
+        "tp": [
+          0,
+          0
+        ],
+        "cs": [
+          0,
+          0
+        ],
+        "ir": 2,
+        "csStatus": 1,
+        "wifi": 2,
+        "wifiRecoveries": 0,
+        "irError": 0,
+        "csError": 0
+      }
+    },
+    {
+      "name": "a_and_b",
+      "description": "A (bit 0) and B (bit 1).",
+      "hex": "4933040103000000000000000000000000000000020102000000000000000000",
+      "expected": {
+        "seq": 1,
+        "buttons": 3,
+        "cp": [
+          0,
+          0
+        ],
+        "tp": [
+          0,
+          0
+        ],
+        "cs": [
+          0,
+          0
+        ],
+        "ir": 2,
+        "csStatus": 1,
+        "wifi": 2,
+        "wifiRecoveries": 0,
+        "irError": 0,
+        "csError": 0
+      }
+    },
+    {
+      "name": "dpad_up_start",
+      "description": "D-pad Up (6) and Start (3).",
+      "hex": "4933040248000000000000000000000000000000020102000000000000000000",
+      "expected": {
+        "seq": 2,
+        "buttons": 72,
+        "cp": [
+          0,
+          0
+        ],
+        "tp": [
+          0,
+          0
+        ],
+        "cs": [
+          0,
+          0
+        ],
+        "ir": 2,
+        "csStatus": 1,
+        "wifi": 2,
+        "wifiRecoveries": 0,
+        "irError": 0,
+        "csError": 0
+      }
+    },
+    {
+      "name": "shoulders_zl_zr",
+      "description": "L (9), R (8), ZL (14), ZR (15).",
+      "hex": "4933040300c30000000000000000000000000000020102000000000000000000",
+      "expected": {
+        "seq": 3,
+        "buttons": 49920,
+        "cp": [
+          0,
+          0
+        ],
+        "tp": [
+          0,
+          0
+        ],
+        "cs": [
+          0,
+          0
+        ],
+        "ir": 2,
+        "csStatus": 1,
+        "wifi": 2,
+        "wifiRecoveries": 0,
+        "irError": 0,
+        "csError": 0
+      }
+    },
+    {
+      "name": "home_pulse",
+      "description": "HOME (bit 16) only.",
+      "hex": "4933040400000100000000000000000000000000020102000000000000000000",
+      "expected": {
+        "seq": 4,
+        "buttons": 65536,
+        "cp": [
+          0,
+          0
+        ],
+        "tp": [
+          0,
+          0
+        ],
+        "cs": [
+          0,
+          0
+        ],
+        "ir": 2,
+        "csStatus": 1,
+        "wifi": 2,
+        "wifiRecoveries": 0,
+        "irError": 0,
+        "csError": 0
+      }
+    },
+    {
+      "name": "cstick_digital",
+      "description": "C-stick Right/Left/Up/Down (bits 24-27).",
+      "hex": "493304050000000f000000000000000000000000020102000000000000000000",
+      "expected": {
+        "seq": 5,
+        "buttons": 251658240,
+        "cp": [
+          0,
+          0
+        ],
+        "tp": [
+          0,
+          0
+        ],
+        "cs": [
+          0,
+          0
+        ],
+        "ir": 2,
+        "csStatus": 1,
+        "wifi": 2,
+        "wifiRecoveries": 0,
+        "irError": 0,
+        "csError": 0
+      }
+    },
+    {
+      "name": "circle_pad_digital_top_bit",
+      "description": "Circle pad Down is bit 31: read it as unsigned (JavaScript: >>> 0).",
+      "hex": "4933040600000090000000000000000000000000020102000000000000000000",
+      "expected": {
+        "seq": 6,
+        "buttons": 2415919104,
+        "cp": [
+          0,
+          0
+        ],
+        "tp": [
+          0,
+          0
+        ],
+        "cs": [
+          0,
+          0
+        ],
+        "ir": 2,
+        "csStatus": 1,
+        "wifi": 2,
+        "wifiRecoveries": 0,
+        "irError": 0,
+        "csError": 0
+      }
+    },
+    {
+      "name": "all_bits",
+      "description": "Every bit set; checks the sign of bit 31 is handled.",
+      "hex": "49330407ffffffff000000000000000000000000020102000000000000000000",
+      "expected": {
+        "seq": 7,
+        "buttons": 4294967295,
+        "cp": [
+          0,
+          0
+        ],
+        "tp": [
+          0,
+          0
+        ],
+        "cs": [
+          0,
+          0
+        ],
+        "ir": 2,
+        "csStatus": 1,
+        "wifi": 2,
+        "wifiRecoveries": 0,
+        "irError": 0,
+        "csError": 0
+      }
+    },
+    {
+      "name": "circle_pad_extremes",
+      "description": "Circle pad at +-156 corners.",
+      "hex": "49330408000000009c0064ff0000000000000000020102000000000000000000",
+      "expected": {
+        "seq": 8,
+        "buttons": 0,
+        "cp": [
+          156,
+          -156
+        ],
+        "tp": [
+          0,
+          0
+        ],
+        "cs": [
+          0,
+          0
+        ],
+        "ir": 2,
+        "csStatus": 1,
+        "wifi": 2,
+        "wifiRecoveries": 0,
+        "irError": 0,
+        "csError": 0
+      }
+    },
+    {
+      "name": "circle_pad_negative",
+      "description": "Small negative values (signed 16-bit).",
+      "hex": "4933040900000000ffffe0ff0000000000000000020102000000000000000000",
+      "expected": {
+        "seq": 9,
+        "buttons": 0,
+        "cp": [
+          -1,
+          -32
+        ],
+        "tp": [
+          0,
+          0
+        ],
+        "cs": [
+          0,
+          0
+        ],
+        "ir": 2,
+        "csStatus": 1,
+        "wifi": 2,
+        "wifiRecoveries": 0,
+        "irError": 0,
+        "csError": 0
+      }
+    },
+    {
+      "name": "touch",
+      "description": "Touch screen point (pixels).",
+      "hex": "4933040a0000100000000000a000780000000000020102000000000000000000",
+      "expected": {
+        "seq": 10,
+        "buttons": 1048576,
+        "cp": [
+          0,
+          0
+        ],
+        "tp": [
+          160,
+          120
+        ],
+        "cs": [
+          0,
+          0
+        ],
+        "ir": 2,
+        "csStatus": 1,
+        "wifi": 2,
+        "wifiRecoveries": 0,
+        "irError": 0,
+        "csError": 0
+      }
+    },
+    {
+      "name": "touch_corner",
+      "description": "Bottom-right touch.",
+      "hex": "4933040b00000000000000003f01ef0000000000020102000000000000000000",
+      "expected": {
+        "seq": 11,
+        "buttons": 0,
+        "cp": [
+          0,
+          0
+        ],
+        "tp": [
+          319,
+          239
+        ],
+        "cs": [
+          0,
+          0
+        ],
+        "ir": 2,
+        "csStatus": 1,
+        "wifi": 2,
+        "wifiRecoveries": 0,
+        "irError": 0,
+        "csError": 0
+      }
+    },
+    {
+      "name": "cstick_analog",
+      "description": "Analog C-stick, mixed signs.",
+      "hex": "4933040c00000000000000000000000088ff6300020102000000000000000000",
+      "expected": {
+        "seq": 12,
+        "buttons": 0,
+        "cp": [
+          0,
+          0
+        ],
+        "tp": [
+          0,
+          0
+        ],
+        "cs": [
+          -120,
+          99
+        ],
+        "ir": 2,
+        "csStatus": 1,
+        "wifi": 2,
+        "wifiRecoveries": 0,
+        "irError": 0,
+        "csError": 0
+      }
+    },
+    {
+      "name": "seq_wrap",
+      "description": "Frame counter at its maximum (wraps to 0 next).",
+      "hex": "493304ff00000000000000000000000000000000020102000000000000000000",
+      "expected": {
+        "seq": 255,
+        "buttons": 0,
+        "cp": [
+          0,
+          0
+        ],
+        "tp": [
+          0,
+          0
+        ],
+        "cs": [
+          0,
+          0
+        ],
+        "ir": 2,
+        "csStatus": 1,
+        "wifi": 2,
+        "wifiRecoveries": 0,
+        "irError": 0,
+        "csError": 0
+      }
+    },
+    {
+      "name": "wifi_reconnecting",
+      "description": "wifi status 3 (reconnecting) after 4 recoveries.",
+      "hex": "4933040d00000000000000000000000000000000020103040000000000000000",
+      "expected": {
+        "seq": 13,
+        "buttons": 0,
+        "cp": [
+          0,
+          0
+        ],
+        "tp": [
+          0,
+          0
+        ],
+        "cs": [
+          0,
+          0
+        ],
+        "ir": 2,
+        "csStatus": 1,
+        "wifi": 3,
+        "wifiRecoveries": 4,
+        "irError": 0,
+        "csError": 0
+      }
+    },
+    {
+      "name": "unpatched_ir",
+      "description": "IR module not patched: ir status 1, error word holds the bogus address.",
+      "hex": "4933040e0000000000000000000000000000000001010200301800d900000000",
+      "expected": {
+        "seq": 14,
+        "buttons": 0,
+        "cp": [
+          0,
+          0
+        ],
+        "tp": [
+          0,
+          0
+        ],
+        "cs": [
+          0,
+          0
+        ],
+        "ir": 1,
+        "csStatus": 1,
+        "wifi": 2,
+        "wifiRecoveries": 0,
+        "irError": 3640662064,
+        "csError": 0
+      }
+    },
+    {
+      "name": "big_error_words",
+      "description": "Error words use the full unsigned 32-bit range.",
+      "hex": "4933040f0000000000000000000000000000000002030200ffffffff00000080",
+      "expected": {
+        "seq": 15,
+        "buttons": 0,
+        "cp": [
+          0,
+          0
+        ],
+        "tp": [
+          0,
+          0
+        ],
+        "cs": [
+          0,
+          0
+        ],
+        "ir": 2,
+        "csStatus": 3,
+        "wifi": 2,
+        "wifiRecoveries": 0,
+        "irError": 4294967295,
+        "csError": 2147483648
+      }
+    },
+    {
+      "name": "everything",
+      "description": "A mix of every field at once.",
+      "hex": "4933042a01440181bcff86000c0022001c003400040102010000000000000004",
+      "expected": {
+        "seq": 42,
+        "buttons": 2164343809,
+        "cp": [
+          -68,
+          134
+        ],
+        "tp": [
+          12,
+          34
+        ],
+        "cs": [
+          28,
+          52
+        ],
+        "ir": 4,
+        "csStatus": 1,
+        "wifi": 2,
+        "wifiRecoveries": 1,
+        "irError": 0,
+        "csError": 67108864
+      }
+    },
+    {
+      "name": "bad_magic",
+      "description": "First two bytes are not \"I3\": decoder must reject.",
+      "hex": "5833040000000000000000000000000000000000020102000000000000000000",
+      "error": "bad magic"
+    },
+    {
+      "name": "wrong_version",
+      "description": "Version 3 packet: decoder must refuse unknown versions.",
+      "hex": "4933030000000000000000000000000000000000020102000000000000000000",
+      "error": "unsupported protocol version 3"
+    },
+    {
+      "name": "stream_resync",
+      "description": "Garbage, then two frames split across chunks; a stream reader must find the magic and yield both frames.",
+      "chunks": [
+        "00010249330409010000000500",
+        "060000000000000000000201020000000000000000004933040901000000050006000000000000000000",
+        "020102000000000000000000"
+      ],
+      "expectedFrames": 2,
+      "expectedSeq": [
+        9,
+        9
+      ]
+    }
+  ]
+}

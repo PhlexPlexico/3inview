@@ -1,0 +1,17 @@
+{
+  "name": "3inview",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/node": "^26.6.5"
+  },
+  "peerDependencies": {
+    "typescript": "^7.0.2"
+  },
+  "dependencies": {
+    "hono": "^4.13.13",
+    "vitest": "^5.0.5"
+  }
+}

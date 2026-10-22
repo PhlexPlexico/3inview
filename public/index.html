@@ -8,9 +8,9 @@
   html, body { margin: 0; background: transparent; font-family: system-ui, sans-serif; }
   #stage { transform-origin: top left; width: 700px; }
   #skin { width: 700px; height: 360px; display: block; }
-  .shell  { fill: #2b2d33; stroke: #55585f; stroke-width: 3; }
+  .shell  { fill: var(--shell, #2b2d33); stroke: #55585f; stroke-width: 3; }
   .shell.dark { fill: #1c1d21; }
-  .screen { fill: #1eff00; stroke: #44474d; stroke-width: 2; }
+  .screen { fill: var(--screen, #1eff00); stroke: #44474d; stroke-width: 2; }
   .well   { fill: #1a1b1f; stroke: #44474d; stroke-width: 2; }
   .nub    { fill: #50545c; stroke: #8a8f99; stroke-width: 2; }
   .btn    { fill: #3b3e46; stroke: #70747d; stroke-width: 2; }
@@ -22,12 +22,26 @@
          background: rgba(0,0,0,.55); padding: 6px 8px; border-radius: 6px; max-width: 360px; white-space: pre-wrap; }
   #hud.hidden { display: none; }
   #conn { font-weight: bold; }
+  #ipbox { position: fixed; left: 50%; top: 30%; transform: translate(-50%, -50%); background: rgba(20,21,25,.95);
+           color: #dfe3ea; padding: 14px 16px; border-radius: 10px; border: 1px solid #55585f; font: 14px system-ui, sans-serif;
+           display: flex; flex-direction: column; gap: 8px; width: 260px; }
+  #ipbox[hidden] { display: none; }
+  #ipbox input { font: 15px ui-monospace, monospace; padding: 6px 8px; border-radius: 6px; border: 1px solid #70747d; background: #0d0e10; color: #fff; }
+  #ipbox button { padding: 6px; border-radius: 6px; border: 0; background: #3aa0ff; color: #fff; font-weight: 600; cursor: pointer; }
+  #ipbox small { color: #9aa0ab; } #iperr { color: #ff7a85; min-height: 1em; font-size: 12px; }
 </style>
 </head>
 <body>
   <div id="stage"></div>
   <div id="hud"><span id="conn">Connecting...</span>
 <span id="info"></span></div>
+  <form id="ipbox" hidden>
+    <label for="ipinput">3DS IP address</label>
+    <input id="ipinput" inputmode="decimal" autocomplete="off" spellcheck="false" placeholder="192.168.1.50">
+    <button type="submit">Connect</button>
+    <div id="iperr"></div>
+    <small>Shown by the Launcher on your 3DS.</small>
+  </form>
   <script type="module" src="/main.js"></script>
 </body>
 </html>

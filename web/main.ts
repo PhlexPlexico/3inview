@@ -1,12 +1,29 @@
 import type { Frame } from "../server/types/frame";
 
-// URL options: ?ip3DS=<3ds ip3DS>  &scale=1  &bg=#00ff00  &debug=0
+// URL options: ?ip=<3ds ip>  &scale=1  &bg=00ff00  &screen=00ff00  &shell=222  &debug=0
 const queryParams = new URLSearchParams(location.search);
-const ip3DS = queryParams.get("ip") ?? "";
+let ip3DS = queryParams.get("ip") ?? "";
 const scale = Number(queryParams.get("scale") ?? "1") || 1;
-if (queryParams.get("bg")) document.body.style.background = queryParams.get("bg")!;
-const hudElement = document.getElementById("hudElement")!;
-if (queryParams.get("debug") === "0") hudElement.classList.add("hidden");
+// Colours may be given with or without '#' (a raw '#' in a URL starts the fragment and is never sent).
+const colour = (v: string | null): string | undefined =>
+  v ? (/^[0-9a-f]{3,8}$/i.test(v) ? `#${v}` : v) : undefined;
+
+const bg = colour(queryParams.get("bg"));
+if (bg)
+  document.body.style.background = bg;
+
+// ?screen=00ff00 paints the touch screen (handy as a chroma key); ?shell=222 recolours the console body.
+const screenColour = colour(queryParams.get("screen"));
+if (screenColour)
+  document.documentElement.style.setProperty("--screen", screenColour);
+
+const shellColour = colour(queryParams.get("shell"));
+if (shellColour)
+  document.documentElement.style.setProperty("--shell", shellColour);
+
+const hudElement = document.getElementById("hud")!;
+if (queryParams.get("debug") === "0")
+  hudElement.classList.add("hidden");
 const conn = document.getElementById("conn")!;
 const info = document.getElementById("info")!;
 const stage = document.getElementById("stage")!;
@@ -74,7 +91,6 @@ function draw() {
 }
 
 function connect() {
-  if (!ip3DS) { conn.textContent = "add ?ip=<3ds ip> to the URL"; return; }
   const eventSrc3Ds = new EventSource(`/events?ip=${encodeURIComponent(ip3DS)}`);
   eventSrc3Ds.addEventListener("status", (e) => {
     const ev = JSON.parse((e as MessageEvent).data);
@@ -92,7 +108,41 @@ function connect() {
   eventSrc3Ds.onerror = () => { conn.textContent = "lost the overlay server, retrying..."; };
 }
 
+// --- IP box: shown when the URL has no ?ip= ---------------------------------------------------
+const IP_KEY = "3inview.ip";
+const ipBox = document.getElementById("ipbox") as HTMLFormElement;
+const ipInput = document.getElementById("ipinput") as HTMLInputElement;
+const ipErr = document.getElementById("iperr")!;
+
+const validIPv4 = (v: string) =>
+  /^(\d{1,3}\.){3}\d{1,3}$/.test(v) && v.split(".").every((n) => Number(n) <= 255);
+// localStorage can be unavailable (blocked, private window, some embedded browsers).
+const loadIp = () => { try { return localStorage.getItem(IP_KEY) ?? ""; } catch { return ""; } };
+const saveIp = (v: string) => { try { localStorage.setItem(IP_KEY, v); } catch { /* ignore */ } };
+
+function showIpBox() {
+  conn.textContent = "enter the IP address of your 3DS";
+  ipInput.value = loadIp();
+  ipBox.hidden = false;
+  ipInput.focus();
+  ipInput.select();
+}
+
+ipBox.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const v = ipInput.value.trim();
+  if (!validIPv4(v)) { ipErr.textContent = "that is not an IPv4 address, e.g. 192.168.1.50"; return; }
+  ipErr.textContent = "";
+  saveIp(v);
+  ipBox.hidden = true;
+  ip3DS = v;
+  // Keep the address in the URL so a refresh, bookmark or OBS source keeps working.
+  queryParams.set("ip", v);
+  history.replaceState(null, "", `${location.pathname}?${queryParams.toString()}`);
+  connect();
+});
+
 setInterval(() => { fps = frames; frames = 0; }, 1000);
 await loadSkin();
 requestAnimationFrame(draw);
-connect();
+if (ip3DS) connect(); else showIpBox();

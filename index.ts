@@ -3,6 +3,9 @@ import { streamSSE } from "hono/streaming";
 import { subscribe } from "./server/hub";
 import { isPrivateIPv4 } from "./server/net-util";
 import { ASSETS } from "./server/assets";
+import { relaunchInTerminalIfNeeded } from "./server/terminal";
+
+relaunchInTerminalIfNeeded();
 
 const app = new Hono();
 

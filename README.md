@@ -27,6 +27,10 @@ Build them yourself with `bun run dist` (all targets, into `dist/`) or `bun run 
 To publish: `git tag v0.1.0 && git push --tags`. The `release` workflow (`.github/workflows/release.yml`) runs the tests,
 builds every target on one Linux runner (Bun cross-compiles) and attaches the archives to a GitHub release.
 Running the workflow by hand from the Actions tab builds the same files as downloadable artifacts without making a release.
+On Windows, double-click `start-3inview.bat` (in the zip, next to the `.exe`): it opens a console window for the server, and closing the window stops it.
+On Linux, double-clicking the executable opens a terminal window for it (closing the window or Ctrl-C stops the server).
+It looks for `x-terminal-emulator`, Ptyxis, GNOME Terminal, Konsole, Xfce Terminal, kitty, Alacritty and xterm, in that order.
+Pass `--no-terminal` or set `INVIEW_NO_TERMINAL=1` to run without one, e.g. from a service; if no terminal emulator is installed it just runs headless.
 Any new file the page loads must be added to `server/assets.ts`, or it will be missing from the executables.
 
 ## Layout

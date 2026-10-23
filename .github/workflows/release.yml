@@ -33,7 +33,9 @@ jobs:
           for f in 3inview-linux-x64 3inview-linux-arm64 3inview-macos-arm64 3inview-macos-x64; do
             tar -czf "$f.tar.gz" "$f" && rm "$f"
           done
-          zip 3inview-windows-x64.zip 3inview-windows-x64.exe && rm 3inview-windows-x64.exe
+          # The .bat opens a console window around the exe (double-click it instead of the .exe).
+          cp ../scripts/start-3inview.bat .
+          zip 3inview-windows-x64.zip 3inview-windows-x64.exe start-3inview.bat && rm 3inview-windows-x64.exe start-3inview.bat
           sha256sum ./* > SHA256SUMS.txt
           ls -la
 
